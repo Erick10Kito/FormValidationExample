@@ -21,7 +21,7 @@ const schema = object<IObjectRegister>({
     name:string().required("Campo obrigatorio").min(3,"Numero de caracteres invalido"),
     surname:string().required("Campo obrigatorio").min(3,"Numero de caracteres invalido"),
     email:string().required("Campo obrigatorio").min(6,"Numero de caracteres invalido").email("Isso não é um email"),
-    cpf:string().required("Campo obrigatorio").test('test-invalid-cpf','CPF Invalido',(value) => cpf.isValid(value) ),
+    cpf:string().test('test-invalid-cpf','CPF Invalido',(value) => value ? cpf.isValid(value) : true ),
     password:string().required("Campo obrigatorio").min(6,"Numero de caracteres invalido").matches(/^(?=.*[0-9])/, 'Deve conter pelo menos um numero').matches(/^(?=.*[a-z])/, 'Deve conter pelo menos uma letra'),
     passwordConfirmation:string().oneOf([ref('password')], 'Senhas são diferentes'),
     terms: boolean().oneOf([true], "Os termos não foram aceitos")
