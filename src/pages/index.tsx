@@ -6,25 +6,20 @@ import { object, string } from "yup";
 import Image from "next/image";
 
 import Disc from '../assets/VinilDisc.png'
-import Login from "@/components/Login";
-import Registro from "@/components/Registro";
+import Login from "@/components/LoginForm";
+import Registro from "@/components/RegisterForm";
+import Layout from "@/components/Layout";
 
 
 
 export default function Home() {
-  const [registerPage, setRegisterPage] = useState(false);
-  const [loginPage, setLoginPage] = useState(true)
-
-  function handleRegisterOrLogin() {
-    setLoginPage(!loginPage)
-    setRegisterPage(!registerPage)
-  }
+  
   
 
   return (
-    <div className="bg-[#191617] h-screen flex justify-end items-center relative max-[1024px]:justify-center max-[1024px]:items-end">
+    <div className="h-screen w-full">
 
-      {loginPage === true ? (<Login handleRegisterOrLogin={handleRegisterOrLogin}/>):(<Registro handleRegisterOrLogin={handleRegisterOrLogin}/>)}
+     <Layout/>
       
 
     </div>

@@ -1,7 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import Image from "next/image"
 import { boolean, object, ref, string } from "yup";
-import { IRegisterOrLogin } from "../Login";
+import { IRegisterOrLogin } from "../LoginForm";
 import { useForm } from "react-hook-form";
 import Disc from '../../assets/VinilDisc.png'
 import { cpf } from "cpf-cnpj-validator";
@@ -27,7 +27,7 @@ const schema = object<IObjectRegister>({
     terms: boolean().oneOf([true], "Os termos não foram aceitos")
   })
 
-export default function Registro({handleRegisterOrLogin}:IRegisterOrLogin) {
+export default function RegisterForm({handleRegisterOrLogin}:IRegisterOrLogin) {
 
     const {register, handleSubmit:onSubmit, watch, formState:{errors}} = useForm({resolver:yupResolver(schema)})
 
@@ -36,12 +36,13 @@ export default function Registro({handleRegisterOrLogin}:IRegisterOrLogin) {
     
       }
     return(
-        <div className="bg-white flex flex-col justify-center items-center w-[80%] h-[80%] rounded-tl rounded-bl max-[1024px]:w-[95%] max-[1024px]:h-[95%] max-[1024px]:px-3">
-        <div className="bg-[#019be6] mb-6 flex items-center justify-center w-[400px] h-12 rounded-full max-[479px]:w-full">
-        <h1 className="text-white ">REGISTRE-SE</h1>
+        <div className="flex flex-col justify-center h-full">
+          <div className="mb-5">
+          <h1 className="text-white  text-4xl text-left">Faça seu Registro!</h1>
+       
         </div>
-      <form action="" className=" w-[550px] z-20 max-[768px]:w-full" onSubmit={onSubmit(handleSubmitLogin)}>
-       <div className="grid grid-cols-2 gap-3 max-[768px]:grid-cols-1">
+        <form action="" className="  z-20 max-[768px]:w-full" onSubmit={onSubmit(handleSubmitLogin)}>
+       <div className="grid grid-cols-1 gap-3 max-[768px]:grid-cols-1">
         <div className="form-group">
         <input type="text" id="name" className="w-full bg-slate-100 h-10 px-2 rounded" placeholder='Seu Nome' {...register("name")}/>
         <span className="text-red-500">{errors?.name?.message?.toString()}</span>
@@ -69,18 +70,14 @@ export default function Registro({handleRegisterOrLogin}:IRegisterOrLogin) {
        </div>
        <div className="">
         <div className="form-group"><input type="checkbox" id="terms" {...register("terms")}/>
-        <label htmlFor="" className="ml-1">Concordo com os termos</label></div>
+        <label htmlFor="" className="ml-1 text-white">Concordo com os termos</label></div>
         <span className="text-red-500">{errors?.terms?.message?.toString()}</span>
        </div>
        </div>
         
         <button type="submit" className="text-white bg-[#019be6] py-2 rounded text-xl font-regular w-full mt-4">Registrar</button>
-        <div className=""><span className="text-left">Ja tem conta? <button className="text-[#019be6]" onClick={handleRegisterOrLogin}>Logue aqui</button></span></div>
+        <div className=""><span className="text-left text-white">Ja tem uma conta? <button className="text-[#019be6]" onClick={handleRegisterOrLogin}>Logue aqui</button></span></div>
         </form>
-
-        
-        <Image src={Disc} alt="" className="absolute right-0 w-[130px] z-10 max-[1024px]:hidden"/>
-        <Image src={MobileDisc} alt="" className="absolute bottom-0 w-[250px] z-10 min-[1025px]:hidden"/>
         </div>
     )
 }
